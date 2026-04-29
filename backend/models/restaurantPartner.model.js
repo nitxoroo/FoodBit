@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const restaurantPartnerSchema = new mongoose.Schema({
     fullname: {
+        type: String,
+        required: true,
+    },
+    restaurantName: {
+        type: String,
+        required: true,
+    },
+    restaurantAddress: {
         type: String,
         required: true,
     },
@@ -17,10 +25,11 @@ const userSchema = new mongoose.Schema({
     mobileNumber: {
         type: String,
         required: true,
+        unique: true,
     },
     role: {
         type: String,
-        default: "user",
+        default: "restaurantPartner",
     },
     resetOtp: {
         type: String,
@@ -40,6 +49,6 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const User = mongoose.model("User", userSchema);
+const RestaurantPartner = mongoose.model("RestaurantPartner", restaurantPartnerSchema);
 
-export default User;
+export default RestaurantPartner;

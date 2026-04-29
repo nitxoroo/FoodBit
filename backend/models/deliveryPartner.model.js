@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const deliveryPartnerSchema = new mongoose.Schema({
     fullname: {
         type: String,
         required: true,
@@ -17,10 +17,20 @@ const userSchema = new mongoose.Schema({
     mobileNumber: {
         type: String,
         required: true,
+        unique: true,
+    },
+    vehicleType: {
+        type: String,
+        required: true,
+    },
+    licenseNumber: {
+        type: String,
+        required: true,
+        unique: true,
     },
     role: {
         type: String,
-        default: "user",
+        default: "deliveryPartner",
     },
     resetOtp: {
         type: String,
@@ -40,6 +50,6 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const User = mongoose.model("User", userSchema);
+const DeliveryPartner = mongoose.model("DeliveryPartner", deliveryPartnerSchema);
 
-export default User;
+export default DeliveryPartner;

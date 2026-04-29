@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { serverUrl } from '../App'
 import { toast } from 'react-toastify'
+import { ClipLoader } from 'react-spinners'
 
 
 // ============================================================
@@ -12,8 +13,8 @@ import { toast } from 'react-toastify'
 const primaryColor = "#ff4d2d"
 const hoverColor = "#e64323"
 const bgColor = "#fff9f6"
-const inputClassName = "peer w-full rounded-lg border border-gray-300 bg-white px-3 pb-2 pt-6 text-sm text-gray-900 transition-all duration-200 placeholder:text-transparent focus:border-[var(--primary-color)] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary-color)]/15"
-const floatingLabelClassName = "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-sm text-gray-500 transition-all duration-200 peer-focus:top-0 peer-focus:text-xs peer-focus:font-medium peer-focus:text-[var(--primary-color)] peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:font-medium peer-not-placeholder-shown:text-[var(--primary-color)]"
+const inputClassName = "peer w-full rounded-lg border border-gray-300 bg-white px-3 py-4 text-md text-gray-900 transition-all duration-200 placeholder:text-transparent focus:border-[var(--primary-color)] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary-color)]/15"
+const floatingLabelClassName = "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-md text-gray-500 transition-all duration-200 peer-focus:top-0 peer-focus:text-xs peer-focus:font-medium peer-focus:text-[var(--primary-color)] peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:font-medium peer-not-placeholder-shown:text-[var(--primary-color)]"
 
 const FloatingInput = ({ id, type = "text", value, onChange, label, autoFocus = false, className = "", inputStyle, trailingContent }) => (
     <div className="relative" style={{ "--primary-color": primaryColor }}>
@@ -71,11 +72,16 @@ const EmailStep = ({ email, setEmail, onSubmit, loading }) => {
             </div>
 
             <button type="submit" disabled={loading}
-                className="w-full text-white p-2.5 rounded-lg transition-colors cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-white p-2.5 rounded-lg transition-colors cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 style={{ backgroundColor: loading ? hoverColor : primaryColor }}
                 onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = hoverColor)}
                 onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = primaryColor)}>
-                {loading ? "Sending OTP..." : "Send OTP"}
+                {loading ? (
+                    <>
+                        <ClipLoader size={18} color="#ffffff" />
+                        <span>Sending OTP...</span>
+                    </>
+                ) : "Send OTP"}
             </button>
         </form>
     )
@@ -177,11 +183,16 @@ const OtpStep = ({ email, onSubmit, onResend, loading }) => {
             </div>
 
             <button type="submit" disabled={loading}
-                className="w-full text-white p-2.5 rounded-lg transition-colors cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-white p-2.5 rounded-lg transition-colors cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 style={{ backgroundColor: loading ? hoverColor : primaryColor }}
                 onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = hoverColor)}
                 onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = primaryColor)}>
-                {loading ? "Verifying..." : "Verify OTP"}
+                {loading ? (
+                    <>
+                        <ClipLoader size={18} color="#ffffff" />
+                        <span>Verifying...</span>
+                    </>
+                ) : "Verify OTP"}
             </button>
         </form>
     )
@@ -245,7 +256,7 @@ const ResetStep = ({ onSubmit, loading }) => {
                     className="pr-10"
                     inputStyle={{ paddingRight: "2.75rem" }}
                     trailingContent={(
-                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 transition-colors hover:text-[var(--primary-color)]">
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 transition-colors hover:text-(--primary-color)">
                             {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                         </button>
                     )}
@@ -279,7 +290,7 @@ const ResetStep = ({ onSubmit, loading }) => {
                     className="pr-10"
                     inputStyle={{ paddingRight: "2.75rem" }}
                     trailingContent={(
-                        <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 transition-colors hover:text-[var(--primary-color)]">
+                        <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 transition-colors hover:text-(--primary-color)">
                             {showConfirm ? <FaRegEyeSlash /> : <FaRegEye />}
                         </button>
                     )}
@@ -293,11 +304,16 @@ const ResetStep = ({ onSubmit, loading }) => {
             </div>
 
             <button type="submit" disabled={loading}
-                className="w-full text-white p-2.5 rounded-lg transition-colors cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-white p-2.5 rounded-lg transition-colors cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 style={{ backgroundColor: loading ? hoverColor : primaryColor }}
                 onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = hoverColor)}
                 onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = primaryColor)}>
-                {loading ? "Resetting..." : "Reset Password"}
+                {loading ? (
+                    <>
+                        <ClipLoader size={18} color="#ffffff" />
+                        <span>Resetting...</span>
+                    </>
+                ) : "Reset Password"}
             </button>
         </form>
     )

@@ -54,7 +54,7 @@ const SignUp = () => {
         { withCredentials: true },
       );
 
-      dispatch(setUserData(res.data));
+      dispatch(setUserData(res.data.user));
       toast.success("Account created successfully!");
       navigate("/signIn");
     } catch (error) {
@@ -89,6 +89,11 @@ const SignUp = () => {
         placeholder=" "
         value={value}
         onChange={onChange}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSingUp(e);
+          }
+        }}
       />
       <label htmlFor={id} className={floatingLabelClassName}>
         {label}

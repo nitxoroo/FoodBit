@@ -43,8 +43,11 @@ const SignIn = () => {
         { withCredentials: true },
       );
 
-      dispatch(setUserData(res.data));
+      console.log("Login Response:", res.data);
+
+      dispatch(setUserData(res.data.user));
       toast.success("Signed in successfully!");
+
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -78,6 +81,11 @@ const SignIn = () => {
         placeholder=" "
         value={value}
         onChange={onChange}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSignIn(e);
+          }
+        }}
       />
       <label htmlFor={id} className={floatingLabelClassName}>
         {label}

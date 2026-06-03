@@ -36,7 +36,7 @@ const SignInDeliveryBoy = () => {
         { email, password },
         { withCredentials: true },
       );
-      dispatch(setUserData(res.data));
+      dispatch(setUserData(res.data.user));
       toast.success("Delivery partner signed in successfully!");
       navigate("/");
     } catch (error) {

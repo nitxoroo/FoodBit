@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useGetCurrUser from "./hooks/useGetCurrUser.jsx";
 import { useSelector } from "react-redux";
 import useGetCity from "./hooks/useGetCity.jsx";
+import CreateEditShop from "./pages/CreateEditShop.jsx";
 
 export const serverUrl = "http://localhost:3000";
 
@@ -61,6 +62,8 @@ const App = () => {
         />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/Create-Edit-Shop" element={<CreateEditShop />} />
       </Routes>
     </>
   );

@@ -4,38 +4,35 @@ import Shop from "../models/shop.model.js";
 export const createAndEditShop = async (req, res) => {
   try {
     const { name, city, state, address } = req.body;
-    let image;
-    if (req.file) {
-      image = await uploadImageToCloudinary(req.file.path);
+    const existingShop = await Shop.findOne({ owner: req.userId });
+    const image = req.file
+      ? await uploadImageToCloudinary(req.file.path)
+      : existingShop?.image;
+
+    if (!existingShop && !image) {
+      return res.status(400).json({ message: "Shop image is required" });
     }
 
-    let shop = await Shop.findOne({ owner: req.userId });
-    if (!shop) {
-      const shop = await Shop.create({
-        name,
-        city,
-        state,
-        address,
-        image,
-        owner: req.userId,
-      });
+    const payload = {
+      name,
+      city,
+      state,
+      address,
+      image,
+      owner: req.userId,
+    };
+
+    let shop;
+    if (!existingShop) {
+      shop = await Shop.create(payload);
     } else {
-      const shop = await Shop.findByIdAndUpdate(
-        shop._id,
-        {
-          name,
-          city,
-          state,
-          address,
-          image,
-          owner: req.userId,
-        },
-        { new: true },
-      );
+      shop = await Shop.findByIdAndUpdate(existingShop._id, payload, {
+        new: true,
+      });
     }
 
     await shop.populate("owner");
-    return res.status(201).json(shop);
+    return res.status(existingShop ? 200 : 201).json(shop);
   } catch (error) {
     console.error(error);
     return res
@@ -48,7 +45,7 @@ export const getMyShop = async (req, res) => {
   try {
     const shop = await Shop.findOne({ owner: req.userId }).populate("owner");
     if (!shop) {
-      return null;
+      return res.status(200).json(null);
     }
     return res.status(200).json(shop);
   } catch (error) {

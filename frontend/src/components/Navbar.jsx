@@ -13,6 +13,7 @@ import { TfiReceipt } from "react-icons/tfi";
 
 const Navbar = () => {
   const { userData, city } = useSelector((state) => state.user);
+  const { MyshopData } = useSelector((state) => state.owner);
   const isUser = userData?.role === "user";
 
   const [showProfileInfo, SetshowProfileInfo] = useState(false);
